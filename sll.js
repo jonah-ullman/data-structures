@@ -112,18 +112,36 @@ class SinglyLinkedList {
 
   remove(index) {
     if (index < 0 || index >= this.length) {
-      return false;
+      return undefined;
     } else if (index === 0) {
-      this.shift();
-      return true;
+      this.length--;
+      return this.shift();
     } else if (index === this.length - 1) {
-      this.pop();
-      return true;
+      this.length--;
+      return this.pop();
     } else {
       const prev = this.get(index - 1);
-      const next = this.get(index + 1);
-      this.prev.next = next;
-      return true;
+      const removed = prev.next;
+      prev.next = removed.next;
+      this.length--;
+      return removed;
     }
+  }
+
+  reverse() {
+    if (this.length <= 1) return this;
+    let current = this.head;
+    let next = this.head.next;
+    this.head = this.tail;
+    this.tail = current;
+    current.next = null;
+    let temp;
+    while (next) {
+      temp = next.next;
+      next.next = current;
+      current = next;
+      next = temp;
+    }
+    return this;
   }
 }
