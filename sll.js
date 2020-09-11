@@ -109,4 +109,21 @@ class SinglyLinkedList {
       return true;
     }
   }
+
+  remove(index) {
+    if (index < 0 || index >= this.length) {
+      return false;
+    } else if (index === 0) {
+      this.shift();
+      return true;
+    } else if (index === this.length - 1) {
+      this.pop();
+      return true;
+    } else {
+      const prev = this.get(index - 1);
+      const next = this.get(index + 1);
+      this.prev.next = next;
+      return true;
+    }
+  }
 }
