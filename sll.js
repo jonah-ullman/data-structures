@@ -73,14 +73,21 @@ class SinglyLinkedList {
     return this;
   }
 
-  get(val) {
-    if (val >= this.length) return null;
+  get(index) {
+    if (index >= this.length) return null;
     let currentIdx = 0;
     let currentNode = this.head;
-    while (currentIdx < val) {
+    while (currentIdx < index) {
       currentNode = currentNode.next;
       currentIdx++;
     }
     return currentNode;
+  }
+
+  set(val, index) {
+    const node = get(index);
+    if (!node) return false;
+    node.value = val;
+    return true;
   }
 }
