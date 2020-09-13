@@ -130,8 +130,24 @@ class DoublyLinkedList {
       const { prev, next } = removed;
       prev.next = next;
       next.prev = prev;
+      this.length--;
       return removed;
     }
   }
-  reverse() {}
+  reverse() {
+    if (this.length <= 1) return this;
+    let current = this.head;
+    let next = current.next;
+    this.head = this.tail;
+    this.tail = current;
+    let temp;
+    while (next) {
+      temp = next.next;
+      next.next = current;
+      current.prev = next;
+      current = next;
+      next = temp;
+    }
+    return this;
+  }
 }
