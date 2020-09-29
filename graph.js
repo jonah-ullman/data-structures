@@ -33,6 +33,28 @@ class Graph {
       delete this.list[vertex];
     }
   }
+
+  depthFirstRecursive(start) {
+    const list = [];
+    const visited = new Set();
+
+    const helper = (vertex) => {
+      visited.add(vertex);
+      list.push(vertex);
+      if (this.list[vertex].length === 0) {
+        return;
+      } else {
+        this.list[vertex].forEach((edge) => {
+          if (!visited.has(edge)) {
+            helper(edge);
+          }
+        });
+      }
+    };
+
+    helper(start);
+    return list;
+  }
 }
 
 const g = new Graph();
@@ -47,7 +69,8 @@ g.addEdge(1, 2);
 g.addEdge(1, 3);
 g.addEdge(1, 4);
 g.addEdge(2, 7);
+g.addEdge(3, 5);
+g.addEdge(5, 6);
 
 console.log(g);
-g.removeVertex(2);
-console.log(g);
+console.log(g.depthFirstRecursive(1));
